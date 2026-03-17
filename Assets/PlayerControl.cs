@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour
     public KeyCode moveUp = KeyCode.W;      
     public KeyCode moveDown = KeyCode.S;  
     public KeyCode pow = KeyCode.Space;    
-    private float speed = 3f;             
+    private float speed = 4f;             
     private Rigidbody2D rb2d;              
     public float boundX = 4.6f;            
     public float boundY = 2.6f;            
@@ -63,7 +63,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     void OnTriggerEnter2D (Collider2D coll){
-        if (coll.CompareTag("Boss")){
+        if (coll.CompareTag("Boss") || (coll.CompareTag("EnemyBullet"))){
             GameManager.vida -= 1;
             if(GameManager.vida == 0){
                 FindFirstObjectByType<GameManager>().perde();

@@ -9,12 +9,16 @@ public class GameManager : MonoBehaviour
     public static int pontAnterior = 0;
     public static int pontMaior = 0;
     public static int vida = 3;
+    public GameObject Star;
+    float timer;
+    float delay = 2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         vida = 3;
         pontuacao = 0;
+        timer = 0f;
     }
 
     void OnGUI () {
@@ -44,6 +48,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        timer += Time.deltaTime;
+        if(timer >= delay)
+        {
+            float y = Random.Range(-2.5f, 2.5f);
+            Instantiate(Star, new Vector3(5.2f, y, 0f), Quaternion.identity);
+            timer = 0f;
+        }
     }
 }
