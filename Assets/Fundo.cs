@@ -4,6 +4,7 @@ public class Fundo : MonoBehaviour
 {
     private float lenght;
     public float parallaxEffect;
+    public static float multiplier = 1f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,7 +14,7 @@ public class Fundo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.left * Time.deltaTime * parallaxEffect;
+        transform.position += Vector3.left * Time.deltaTime * parallaxEffect * multiplier;
         if(transform.position.x < -lenght ) {
             transform.position = new Vector3(lenght, transform.position.y, transform.position.z);
         }

@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - StarBullet
   - EnemyBullet
+  - PowerUp
   layers:
   - Default
   - TransparentFX

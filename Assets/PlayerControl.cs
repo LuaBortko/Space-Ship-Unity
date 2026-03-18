@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class PlayerControl : MonoBehaviour
 {
     public KeyCode moveLeft = KeyCode.A;      
@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
     float timer;
     float delay = 0.5f;
     public GameObject Bala;
+    bool ativo = false;
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -62,12 +63,41 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    IEnumerator EfeitoTemporario()
+    {
+        ativo = true;
+        float porcentagem = 0.5f;
+        float vel_star = StarControl.speed;
+        float vel_clock = ClockControl.speed;
+        BossControl.multiplier = porcentagem; 
+        StarControl.speed *= porcentagem;
+        ClockControl.speed *= porcentagem;
+        Fundo.multiplier = porcentagem;
+        yield return new WaitForSeconds(7f);
+        StarControl.speed = vel_star;
+        ClockControl.speed = vel_clock;
+        Fundo.multiplier = 1;
+        BossControl.multiplier = 1;
+        ativo = false;
+    }
+
     void OnTriggerEnter2D (Collider2D coll){
-        if (coll.CompareTag("Boss") || (coll.CompareTag("EnemyBullet"))){
+        if (coll.CompareTag("Boss")){
             GameManager.vida -= 1;
-            if(GameManager.vida == 0){
-                FindFirstObjectByType<GameManager>().perde();
+        } else if (coll.CompareTag("EnemyBullet"))
+        {
+            GameManager.vida -= 1;
+            Destroy(coll.gameObject);
+        } else if (coll.CompareTag("PowerUp"))
+        {
+            Destroy(coll.gameObject);
+            if (!ativo)
+            {
+                StartCoroutine(EfeitoTemporario());
             }
+        }
+        if(GameManager.vida == 0){
+            FindFirstObjectByType<GameManager>().perde();
         }
     }
 

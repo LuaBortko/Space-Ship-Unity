@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections;
 public class BossControl : MonoBehaviour
 {
-    private float speed;             
+    public float speed; 
+    public static float multiplier = 1;            
     private Rigidbody2D rb2d;               
     private Animator animator;
     bool isAttacking = false;
@@ -56,21 +57,22 @@ public class BossControl : MonoBehaviour
     {
         var pos = transform.position;
         var vel = rb2d.linearVelocity;
+        var sp = speed*multiplier;
         if(pos.y > 0.7f)
         {
-            vel.y = -speed;
+            vel.y = -sp;
         }
         else if(pos.y < -0.7f)
         {
-            vel.y = speed;
+            vel.y = sp;
         }
         if(pos.x < 1.5f)
         {
-            vel.x = speed;
+            vel.x = sp;
         }
         else if(pos.x > 3.2f)
         {
-            vel.x = -speed;
+            vel.x = -sp;
         }
         rb2d.linearVelocity = vel;
     }
@@ -95,20 +97,18 @@ public class BossControl : MonoBehaviour
             );
             yield return null;
         }
-        var vel = rb2d.linearVelocity;
-        vel.x = -5f;
-        rb2d.linearVelocity = vel;
         while (transform.position.x > -8)
         {
+            rb2d.linearVelocity = new Vector2(-5f * multiplier, rb2d.linearVelocity.y);
             yield return null;
         }
         transform.position = new Vector3(8, transform.position.y, transform.position.z);
         while (transform.position.x > 3.2)
         {
+            rb2d.linearVelocity = new Vector2(-5f * multiplier, rb2d.linearVelocity.y);
             yield return null;
         }
-        vel.x = 0;
-        rb2d.linearVelocity = vel;
+        rb2d.linearVelocity = new Vector2(0, rb2d.linearVelocity.y);
         Quaternion alvo2 = Quaternion.Euler(0f, 0f, 0f);
         while (Quaternion.Angle(transform.rotation, alvo2) > 1f)
         {
@@ -121,7 +121,6 @@ public class BossControl : MonoBehaviour
         }
         StopCharging();
         StopAttack1();
-        speed = 1f;
     }
 
     IEnumerator AttackRoutine(){
@@ -135,11 +134,7 @@ public class BossControl : MonoBehaviour
             yield return new WaitForSeconds(2f);
             yield return StartCoroutine(Ataque1());
             isAttacking = false;
-            var vel = rb2d.linearVelocity;
-            vel.x = speed;
-            vel.y = speed;
-            rb2d.linearVelocity = vel;
-
+            rb2d.linearVelocity = new Vector2(speed, speed);
         }
     }
 

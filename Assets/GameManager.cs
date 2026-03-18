@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static int pontMaior = 0;
     public static int vida = 3;
     public GameObject Star;
+    public GameObject Clock;
     float timer;
     float delay = 2f;
 
@@ -52,7 +53,15 @@ public class GameManager : MonoBehaviour
         if(timer >= delay)
         {
             float y = Random.Range(-2.5f, 2.5f);
-            Instantiate(Star, new Vector3(5.2f, y, 0f), Quaternion.identity);
+            float rand = Random.Range(0f, 1f);
+            if(rand > 0.2)
+            {
+                Instantiate(Star, new Vector3(5.2f, y, 0f), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(Clock, new Vector3(5.2f, y, 0f), Quaternion.identity);
+            }
             timer = 0f;
         }
     }

@@ -779,6 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   Star: {fileID: 8843222086192514062, guid: c0f8ed61142286b47a6d05bbf56bf6b6, type: 3}
+  Clock: {fileID: 5358197597201341023, guid: c10376bfbc8c9f248b9b4519048407b6, type: 3}
 --- !u!4 &1874149559
 Transform:
   m_ObjectHideFlags: 0
