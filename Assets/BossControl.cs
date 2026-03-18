@@ -7,10 +7,12 @@ public class BossControl : MonoBehaviour
     private Rigidbody2D rb2d;               
     private Animator animator;
     bool isAttacking = false;
+    bool isDeath = false;
     int vida;
+    public Sprite spriteMorte;
     void Start()
     {
-        vida = 50;
+        vida = 10;
         speed = 2f;
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
@@ -31,7 +33,7 @@ public class BossControl : MonoBehaviour
             Destroy(coll.gameObject);
             vida--;
             if(vida <= 0){
-                FindFirstObjectByType<GameManager>().ganha();
+                Morrer();
             }
         }
     }
@@ -124,7 +126,7 @@ public class BossControl : MonoBehaviour
     }
 
     IEnumerator AttackRoutine(){
-        while(true) // depois colocar um for como a vida
+        while(!isDeath) // depois colocar um for como a vida
         {
             float tempo = Random.Range(5f, 7f);
             yield return new WaitForSeconds(tempo);
@@ -138,11 +140,30 @@ public class BossControl : MonoBehaviour
         }
     }
 
+    public void Morrer()
+    {
+        isDeath = true;
+        animator.enabled = false;
+        StopAllCoroutines();
+        GetComponent<SpriteRenderer>().sprite = spriteMorte;
+        rb2d.linearVelocity = new Vector2(0, -3f);
+        GetComponent<Collider2D>().enabled = false;
+    }
+
     void FixedUpdate()
     {
-        if(!isAttacking)
+        if(!isAttacking && !isDeath)
         {
             Movimento();
+        }
+    }
+
+    void Update()
+    {
+        if(transform.position.y < -5f)
+        {
+            FindFirstObjectByType<GameManager>().ganha();
+            Destroy(gameObject);
         }
     }
 }
