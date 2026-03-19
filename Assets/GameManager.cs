@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
             pontMaior = pontuacao;
         }
         pontAnterior = pontuacao;
-        //SceneManager.LoadScene("Fim");
+        SceneManager.LoadScene("Derrota");
     }
 
     public void ganha(){
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
             pontMaior = pontuacao;
         }
         pontAnterior = pontuacao;
-        //SceneManager.LoadScene("Fim");
+        SceneManager.LoadScene("Vitoria");
     }
 
     // Update is called once per frame
