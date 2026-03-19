@@ -69,7 +69,8 @@ public class PlayerControl : MonoBehaviour
         float porcentagem = 0.5f;
         float vel_star = StarControl.speed;
         float vel_clock = ClockControl.speed;
-        BossControl.multiplier = porcentagem; 
+        BossControl.multiplier = porcentagem;
+        EnemyControl.multiplier = porcentagem; 
         StarControl.speed *= porcentagem;
         ClockControl.speed *= porcentagem;
         Fundo.multiplier = porcentagem;
@@ -78,6 +79,7 @@ public class PlayerControl : MonoBehaviour
         ClockControl.speed = vel_clock;
         Fundo.multiplier = 1;
         BossControl.multiplier = 1;
+        EnemyControl.multiplier = 1;
         ativo = false;
     }
 

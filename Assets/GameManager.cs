@@ -11,7 +11,10 @@ public class GameManager : MonoBehaviour
     public static int vida = 3;
     public GameObject Star;
     public GameObject Clock;
+    public GameObject Six;
     float timer;
+    float timer2;
+    float nextSix;
     float delay = 2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,6 +23,8 @@ public class GameManager : MonoBehaviour
         vida = 3;
         pontuacao = 0;
         timer = 0f;
+        timer2 = 0f;
+        nextSix = Random.Range(5f, 10f);
     }
 
     void OnGUI () {
@@ -50,6 +55,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        timer2 += Time.deltaTime;
         if(timer >= delay)
         {
             float y = Random.Range(-2.5f, 2.5f);
@@ -58,11 +64,19 @@ public class GameManager : MonoBehaviour
             {
                 Instantiate(Star, new Vector3(5.2f, y, 0f), Quaternion.identity);
             }
-            else
+            else 
             {
                 Instantiate(Clock, new Vector3(5.2f, y, 0f), Quaternion.identity);
             }
             timer = 0f;
+        }
+
+        if(timer2 >= nextSix)
+        {
+            float y = Random.Range(-2.5f, 2.5f);
+            Instantiate(Six, new Vector3(5.2f, y, 0f), Quaternion.identity);
+            timer2 = 0;
+            nextSix = Random.Range(5f, 10f);
         }
     }
 }

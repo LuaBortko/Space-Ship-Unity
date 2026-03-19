@@ -12,7 +12,7 @@ public class BossControl : MonoBehaviour
     public Sprite spriteMorte;
     void Start()
     {
-        vida = 30;
+        vida = 50;
         speed = 2f;
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
@@ -147,6 +147,7 @@ public class BossControl : MonoBehaviour
         StopAllCoroutines();
         GetComponent<SpriteRenderer>().sprite = spriteMorte;
         rb2d.linearVelocity = new Vector2(0, -3f);
+        GameManager.pontuacao += 67;
         GetComponent<Collider2D>().enabled = false;
     }
 
