@@ -12,7 +12,7 @@ public class BossControl : MonoBehaviour
     public Sprite spriteMorte;
     void Start()
     {
-        vida = 10;
+        vida = 30;
         speed = 2f;
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
